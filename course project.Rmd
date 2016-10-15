@@ -17,20 +17,16 @@ I load the data file and look at its structure, the outcome distribution and
 some features.
 
 ```{r}
-setwd("Practical Machine Learning")
 data0 <- read.csv("pml-training.csv",row.names=1)
-names(data0)
+names(data0)[1:20]
 table(data0$classe)
-head(data0)
 table(data0$user_name,data0$classe)
-table(data0$num_window)
 hist(table(data0$num_window))
 ```
 
 It looks like the data comes from time windows with different lengths. However,
 I ignore the temporal structure of the data for this exercise, and learn only
-on the individual observations. From the paper, I understand that these come
-from rolling windows.
+on the individual observations.
 
 I now look at the structure of the data, and particularly look for missing
 values.
@@ -69,7 +65,7 @@ and noisy data. Because of run time constraints, I severely limit the number of
 trees, using `ntree=10`.
 
 I split up the data set using 10-fold cross-validation along the
-outcome variable classe. This will allow me to get a robust estimate on the
+outcome variable `classe`. This will allow me to get a robust estimate on the
 out-of-sample error.
 
 I set a seed for the random number generator to make the results
