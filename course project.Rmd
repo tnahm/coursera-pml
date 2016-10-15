@@ -93,7 +93,7 @@ for (p in partition) {
 confusionMatrix(res,data$classe)
 ```
 
-The random forest model shows a high accuracy of 94.7%, so I do not
+The random forest model shows a high accuracy of almost 95%, so I do not
 investigate further methods or a higher number of trees. I train the final model
 on the full data set.
 
