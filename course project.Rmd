@@ -61,8 +61,8 @@ dim(data)
 Now we are ready to start the analysis.
 
 I try the random forest method first, as it is usually robust with feature rich
-and noisy data. Because of run time constraints, I severely limit the number of
-trees, using `ntree=10`.
+and noisy data. Because of run time constraints, I limit the number of
+trees, using `ntree=100`.
 
 I split up the data set using 10-fold cross-validation along the
 outcome variable `classe`. This will allow me to get a robust estimate on the
@@ -85,7 +85,7 @@ res <- factor(rep(NA,nrow(data)),levels(data$classe))
 for (p in partition) {
 	train <- data[p,]
 	test <- data[-p,]
-	mod.rf <- randomForest(classe ~ .,data=data.cv,ntree=10)
+	mod.rf <- randomForest(classe ~ .,data=train,ntree=100)
 	pred.rf <- predict(mod.rf,newdata=test)
 	res[-p] <- pred.rf
 }
@@ -93,13 +93,13 @@ for (p in partition) {
 confusionMatrix(res,data$classe)
 ```
 
-The random forest model shows a very high accuracy of 99.95%, so I do not
+The random forest model shows a high accuracy of 94.7%, so I do not
 investigate further methods or a higher number of trees. I train the final model
 on the full data set.
 
 ```{r}
 set.seed(123)
-final.mod <- randomForest(classe ~ .,data=data,ntree=10)
+final.mod <- randomForest(classe ~ .,data=data,ntree=100)
 ```
 
 I am curious what variables are the most predictive, and look at their relative
